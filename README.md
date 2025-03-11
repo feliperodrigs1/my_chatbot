@@ -46,6 +46,8 @@ MyChatbot::FileReader::SUPPORTED_FORMATS
 ```
 Or check in the path: `lib/my_chatbot/file_reader.rb:5`
 
+**But I strongly recommend using the `.md` format, as it is easy to parse it and generate embeddings based on the string formed.**
+
 For chat use, you can set a locale when sending the question to the gem. If the parameter is empty, the default is pt-BR:
 ```ruby
 # MyChatbot::Consultant.ask_question(question)
