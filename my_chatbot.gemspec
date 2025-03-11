@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "redis"
   spec.add_dependency "dotenv" 
+  spec.add_dependency "pdf-reader"
   spec.add_dependency "ruby-openai"
 
   # For more information and examples about making a new gem, check out our

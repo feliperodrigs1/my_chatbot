@@ -4,6 +4,7 @@ require_relative "my_chatbot/version"
 require_relative "my_chatbot/configuration"
 require_relative "my_chatbot/processor"
 require_relative "my_chatbot/consultant"
+require_relative "my_chatbot/file_reader"
 require "dotenv"
 require "redis"
 
