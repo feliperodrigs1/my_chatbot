@@ -2,9 +2,9 @@ require 'pdf-reader'
 
 module MyChatbot
   class FileReader
-    class << self
-      SUPPORTED_FORMATS = %w[md pdf].freeze
+    SUPPORTED_FORMATS = %w[md pdf].freeze
 
+    class << self
       def call
         ext = File.extname(document_path).delete('.').downcase
 
