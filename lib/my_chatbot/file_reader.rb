@@ -2,7 +2,7 @@ require 'pdf-reader'
 
 module MyChatbot
   class FileReader
-    SUPPORTED_FORMATS = %w[md pdf].freeze
+    SUPPORTED_FORMATS = %w[md pdf txt].freeze
 
     class << self
       def call
@@ -23,6 +23,10 @@ module MyChatbot
         reader = PDF::Reader.new(document_path)
 
         reader.pages.map(&:text).join("\n").gsub(/\r?\n/, "\n\n").strip
+      end
+
+      def read_txt
+        File.read(document_path).gsub(/\r?\n/, "\n\n").strip
       end
 
       def document_path
