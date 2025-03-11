@@ -39,9 +39,17 @@ As soon as the above configuration is executed in your initializer, the document
 
 The AI ​​has been limited by prompts so that it only answers questions about the document, without being able to deviate from the main topic or answer random questions.
 
-Usage example:
+Currently, not all file formats are supported by the gem. However, it is easy to check which formats the gem supports for embedding. You can simply use the command:
 ```ruby
-MyChatbot::Consultant.ask_question(question)
+MyChatbot::FileReader::SUPPORTED_FORMATS
+=> ["md", "pdf", "txt"]
+```
+Or check in the path: `lib/my_chatbot/file_reader.rb:5`
+
+For chat use, you can set a locale when sending the question to the gem. If the parameter is empty, the default is pt-BR:
+```ruby
+# MyChatbot::Consultant.ask_question(question)
+MyChatbot::Consultant.ask_question(question, 'en')
 ```
 
 ## Development
