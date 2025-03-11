@@ -22,3 +22,5 @@ module MyChatbot
     end
   end
 end
+
+MyChatbot::Processor.generate_embeddings
