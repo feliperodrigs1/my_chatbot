@@ -10,6 +10,8 @@ module MyChatbot
         if cached_document.nil? || cached_document != document
           puts 'Generating embeddings...'
 
+          delete_old_embeddings
+
           document.split("\n\n").each_with_index do |section, index|
             response = send_to_openai(section)
             vector = response.dig("data", 0, "embedding")
@@ -21,6 +23,11 @@ module MyChatbot
         end
 
         puts 'Embeddings processed!'
+      end
+
+      def delete_old_embeddings
+        keys = redis.keys("embedding_*")
+        redis.del(*keys) unless keys.empty?
       end
 
       def send_to_openai(text)
