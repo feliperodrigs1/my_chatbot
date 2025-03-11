@@ -8,19 +8,24 @@ module MyChatbot
         document = File.read(MyChatbot.configuration.docs_path)
 
         if cached_document && cached_document != document
-          response = send_to_openai(document)
-          vectors  = response.dig('data', 0, 'embedding')
+          document.split("\n\n").each_with_index do |section, index|
+            response = send_to_openai(section)
+            vector = response.dig("data", 0, "embedding")
+  
+            redis.set("embedding_#{index}", Marshal.dump({ text: section, vector: vector }))
+          end
   
           redis.set('chatbot_document', document)
-          redis.set('chatbot_embeddings', vectors)
         end
+
+        puts 'Embeddings processed!'
       end
 
-      def send_to_openai(document)
+      def send_to_openai(text)
         MyChatbot.configuration.client.embeddings(
           parameters: {
             model: 'text-embedding-ada-002',
-            input: document
+            input: text
           }
         )
       end
