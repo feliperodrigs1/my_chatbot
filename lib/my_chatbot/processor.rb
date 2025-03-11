@@ -7,7 +7,7 @@ module MyChatbot
         cached_document = redis.get('chatbot_document')
         document = File.read(MyChatbot.configuration.docs_path)
 
-        if cached_document && cached_document != document
+        if cached_document.nil? || cached_document != document
           puts 'Generating embeddings...'
 
           document.split("\n\n").each_with_index do |section, index|
