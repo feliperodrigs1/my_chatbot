@@ -25,7 +25,7 @@ module MyChatbot
       end
 
       def retrieve_relevant_text(question)
-        question_embedding = MyChatbot::Processor.send_to_openai(question).dig("data", 0, "embedding")
+        question_embedding = process_question(question)
 
         best_match = nil
         highest_similarity = -1
@@ -41,6 +41,10 @@ module MyChatbot
         end
 
         best_match
+      end
+
+      def process_question(question)
+        MyChatbot::Processor.send_to_openai(question).dig("data", 0, "embedding")
       end
 
       def cosine_similarity(vec1, vec2)

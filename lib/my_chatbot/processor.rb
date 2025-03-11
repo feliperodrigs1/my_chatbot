@@ -8,6 +8,8 @@ module MyChatbot
         document = File.read(MyChatbot.configuration.docs_path)
 
         if cached_document && cached_document != document
+          puts 'Generating embeddings...'
+
           document.split("\n\n").each_with_index do |section, index|
             response = send_to_openai(section)
             vector = response.dig("data", 0, "embedding")
