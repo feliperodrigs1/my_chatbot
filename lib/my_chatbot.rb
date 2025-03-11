@@ -18,9 +18,11 @@ module MyChatbot
     def configure
       self.configuration ||= Configuration.new
 
-      yield(configuration) if block_given?
+      if block_given?
+        yield(configuration)
+
+        MyChatbot::Processor.generate_embeddings
+      end
     end
   end
 end
-
-MyChatbot::Processor.generate_embeddings
