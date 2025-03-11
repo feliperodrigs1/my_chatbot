@@ -12,21 +12,19 @@ module MyChatbot
           raise "Unsupported file format: .#{ext}"
         end
   
-        send("read_#{ext}")
+        send("read_#{ext}").strip
       end
 
-      def read_md
-        File.read(document_path)
+      %w(md txt).each do |ext|
+        define_method("read_#{ext}") do
+          File.read(document_path)
+        end
       end
 
       def read_pdf
         reader = PDF::Reader.new(document_path)
 
-        reader.pages.map(&:text).join("\n").gsub(/\r?\n/, "\n\n").strip
-      end
-
-      def read_txt
-        File.read(document_path).gsub(/\r?\n/, "\n\n").strip
+        reader.pages.map(&:text).join("\n")
       end
 
       def document_path
