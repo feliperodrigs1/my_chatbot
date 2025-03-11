@@ -20,7 +20,8 @@ module MyChatbot
 
       def prompt(locale, relevant_text)
         "Please assume that you are a chatbot service and use the following document: #{relevant_text} to respond in the language: #{locale}. 
-        \n\nThis way you cannot cite the document itself."
+        \n\nThis way you cannot cite the document itself.
+        \n\nRemember that because it is a chatbot you must answer questions related to the document, or at least close to it, if the question is not relevant, say that you cannot talk about it"
       end
 
       def retrieve_relevant_text(question)
