@@ -5,7 +5,7 @@ module MyChatbot
         raise 'Path not defined' unless MyChatbot.configuration.docs_path
 
         cached_document = redis.get('chatbot_document')
-        document = File.read(MyChatbot.configuration.docs_path)
+        document = MyChatbot::FileReader.call
 
         if cached_document.nil? || cached_document != document
           puts 'Generating embeddings...'
