@@ -1,9 +1,5 @@
 # MyChatbot
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/my_chatbot`. To experiment with that code, run `bin/console` for an interactive prompt.
-
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
@@ -20,7 +16,43 @@ gem install my_chatbot
 
 ## Usage
 
-TODO: Write usage instructions here
+### To start using the gem, you need to define some essential parameters for its functioning. 
+
+For now, the gem only supports the OpenAI API, so you need to insert your personal token in `openai_api_key`. You can generate your own token at the [link](https://platform.openai.com/api-keys).
+
+The next parameter will be responsible for informing the model that OpenAI will use to generate the responses for your chat (`model`), remembering that for generating embeddings the fixed model is `text-embedding-ada-002`.
+
+And finally, to ensure correct usage, it is necessary to inform the path (`docs_path`) that the gem needs to follow until it finds its documentation, and thus be able to generate the embeddings.
+
+Example:
+```ruby
+MyChatbot.configure do |config|
+  config.openai_api_key = ENV['OPENAI_API_KEY']
+  config.model = 'gpt-4o'
+  config.docs_path = 'tmp/example.md'
+end
+```
+
+As soon as the above configuration is executed in your initializer, the document embeddings will already be generated, and each time your initializer is executed again, the gem checks if the document has changed and then generates the embeddings based on the new information.
+
+### Once the settings are correct, you can start consulting the chatbot, which will generate answers based on the document provided.
+
+The AI ​​has been limited by prompts so that it only answers questions about the document, without being able to deviate from the main topic or answer random questions.
+
+Currently, not all file formats are supported by the gem. However, it is easy to check which formats the gem supports for embedding. You can simply use the command:
+```ruby
+MyChatbot::FileReader::SUPPORTED_FORMATS
+=> ["md", "pdf", "txt"]
+```
+Or check in the path: `lib/my_chatbot/file_reader.rb:5`
+
+**But I strongly recommend using the `.md` format, as it is easy to parse it and generate embeddings based on the string formed.**
+
+For chat use, you can set a locale when sending the question to the gem. If the parameter is empty, the default is pt-BR:
+```ruby
+# MyChatbot::Consultant.ask_question(question)
+MyChatbot::Consultant.ask_question(question, 'en')
+```
 
 ## Development
 
