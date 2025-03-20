@@ -1,5 +1,7 @@
 # MyChatbot
 
+**MyChatbot** is a Ruby gem that enables chatbot interactions based on document embeddings. It processes text files, generates vector embeddings, and retrieves the most relevant content to provide accurate responses. Designed for seamless integration, it ensures contextual and precise answers using OpenAI's API.
+
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
