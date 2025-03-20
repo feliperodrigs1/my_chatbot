@@ -10,9 +10,7 @@ module MyChatbot
       return @client if defined?(@client)
 
       opts = { access_token: openai_api_key }
-      opts.merge!(log_errors: true)
-      # uncomment when its done
-      # opts.merge!(log_errors: true) if defined?(Rails) && Rails.env.development?
+      opts.merge!(log_errors: true) if defined?(Rails) && Rails.env.development?
 
       @client = OpenAI::Client.new(opts)
     end
